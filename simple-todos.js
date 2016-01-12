@@ -35,7 +35,8 @@ if (Meteor.isClient) {
     var content = JSON.parse(results.content);
     for(var i = 0; i <content.length; i++){
       var event = content[i];
-      Meteor.call("addTask", event.title);
+      var findResult = Tasks.findOne({text: event.title});
+      if(!findResult) Meteor.call("addTask", event.title);
     }
   });
   Template.body.helpers({
